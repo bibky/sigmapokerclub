@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sigma Poker Club</title>
+<meta name="description" content="Sigma Poker Club — спортивный покерный клуб. Турниры каждую пятницу, сезоны и рейтинг игроков.">
+<meta name="theme-color" content="#0b0a08">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sigma Poker Club">
+<meta property="og:description" content="Спортивный покерный клуб. Турниры каждую пятницу, анонсы в Telegram.">
+<meta property="og:url" content="https://bibky.github.io/poker-charts/club/">
+<meta property="og:image" content="https://bibky.github.io/poker-charts/club/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="wreath.png">
+<link rel="apple-touch-icon" href="emblem.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Commissioner:wght@300;400;500&display=swap">
+<style>
+html, body { margin: 0; }
+img { max-width: 100%; }
+
+/* Layout: one dark column like the emblem itself — logo, then the next game laid out on table felt, then the club, then the contact line. */
+:root {
+  --ink: #0b0a08;          /* emblem black, slight warm bias */
+  --ink-2: #14120e;
+  --gold: #d6bf7f;
+  --gold-hi: #f0e0a6;
+  --gold-lo: #8c7443;
+  --felt: #0f3a2b;         /* poker table felt: the extra colour */
+  --felt-hi: #1b5640;
+  --text: #ebe4d1;
+  --muted: #a69d86;
+  --line: rgba(214, 191, 127, 0.22);
+
+  --f-latin: "Cinzel", "Trajan Pro", "Times New Roman", serif;
+  --f-display: "Cormorant Garamond", "Times New Roman", Georgia, serif;
+  --f-body: "Commissioner", "Segoe UI", system-ui, sans-serif;
+
+  --gold-grad: linear-gradient(180deg, var(--gold-lo) 0%, var(--gold) 30%, var(--gold-hi) 52%, var(--gold) 72%, var(--gold-lo) 100%);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { background: var(--ink); }
+body {
+  background: var(--ink);
+  color: var(--text);
+  font-family: var(--f-body);
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 4px; border-radius: 4px; }
+
+.wrap {
+  max-width: 980px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* ---------- hero ---------- */
+.hero {
+  padding-block: clamp(48px, 9vw, 96px) clamp(40px, 7vw, 72px);
+  text-align: center;
+  background: radial-gradient(60% 55% at 50% 38%, rgba(214, 191, 127, 0.09), transparent 70%);
+}
+.hero img {
+  width: clamp(180px, 34vw, 260px);
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 0 28px rgba(214, 191, 127, 0.18));
+}
+.wordmark {
+  margin: 28px 0 0;
+  font-family: var(--f-latin);
+  font-weight: 700;
+  font-size: clamp(30px, 6.4vw, 58px);
+  letter-spacing: 0.06em;
+  line-height: 1.1;
+  background: var(--gold-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-wrap: balance;
+}
+.tagline {
+  margin: 14px 0 0;
+  font-family: var(--f-display);
+  font-weight: 500;
+  font-size: clamp(19px, 2.6vw, 24px);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.suits {
+  margin: 22px auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  color: var(--gold-lo);
+  font-size: 15px;
+}
+.suits::before, .suits::after {
+  content: "";
+  width: 64px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-lo));
+}
+.suits::after { transform: scaleX(-1); }
+
+/* ---------- announcement on felt ---------- */
+.next { padding-block: 8px clamp(48px, 8vw, 80px); }
+.felt {
+  position: relative;
+  border-radius: 28px;
+  padding: clamp(26px, 5vw, 48px);
+  background:
+    radial-gradient(120% 90% at 50% 0%, var(--felt-hi), var(--felt) 62%);
+  border: 1px solid var(--line);
+  box-shadow: inset 0 0 0 6px rgba(11, 10, 8, 0.35), inset 0 0 0 7px var(--line), 0 30px 60px -30px rgba(0, 0, 0, 0.9);
+  overflow: hidden;
+}
+.felt::after {          /* faint cloth grain */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.012) 0 2px, transparent 2px 4px);
+  pointer-events: none;
+}
+.felt-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 48px);
+  align-items: center;
+}
+.eyebrow {
+  margin: 0;
+  font-family: var(--f-body);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.felt h2 {
+  margin: 10px 0 0;
+  font-family: var(--f-display);
+  font-weight: 600;
+  font-size: clamp(34px, 5.2vw, 52px);
+  line-height: 1.05;
+  color: var(--text);
+  text-wrap: balance;
+}
+.felt h2 .date { color: var(--gold-hi); white-space: nowrap; }
+.felt p.lead { margin: 16px 0 0; max-width: 46ch; color: rgba(235, 228, 209, 0.82); }
+
+.ticket {
+  display: grid;
+  gap: 0;
+  border-radius: 16px;
+  background: rgba(11, 10, 8, 0.42);
+  border: 1px solid var(--line);
+}
+.ticket div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 14px 20px;
+  border-top: 1px dashed var(--line);
+}
+.ticket div:first-child { border-top: 0; }
+.ticket dt { font-size: 14px; color: var(--muted); }
+.ticket dd { margin: 0; font-family: var(--f-display); font-size: 21px; font-weight: 600; color: var(--text); text-align: right; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 26px;
+  padding: 13px 22px;
+  border-radius: 999px;
+  background: var(--gold-grad);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 24px -10px rgba(240, 224, 166, 0.55);
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 12px 28px -10px rgba(240, 224, 166, 0.7); }
+.btn svg { width: 18px; height: 18px; }
+
+/* ---------- about ---------- */
+.about { padding-block: clamp(24px, 5vw, 48px) clamp(56px, 9vw, 96px); }
+.section-title {
+  margin: 0;
+  font-family: var(--f-display);
+  font-weight: 600;
+  font-size: clamp(30px, 4.2vw, 42px);
+  line-height: 1.1;
+  color: var(--gold);
+  text-align: center;
+}
+.about-text {
+  max-width: 62ch;
+  margin: 22px auto 0;
+  display: grid;
+  gap: 14px;
+  color: rgba(235, 228, 209, 0.86);
+}
+.about-text p { margin: 0; }
+
+.stats {
+  margin: clamp(36px, 6vw, 56px) 0 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.stat {
+  padding: 26px 18px;
+  text-align: center;
+  border-left: 1px solid var(--line);
+  min-width: 0;
+}
+.stat:first-child { border-left: 0; }
+.stat b {
+  display: block;
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: clamp(40px, 6vw, 58px);
+  line-height: 1;
+  font-variant-numeric: lining-nums tabular-nums;
+  background: var(--gold-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.stat span { display: block; margin-top: 10px; font-size: 14px; color: var(--muted); line-height: 1.45; }
+
+.charts-link {
+  margin: 36px auto 0;
+  max-width: 62ch;
+  text-align: center;
+  color: var(--muted);
+  font-size: 15px;
+}
+.charts-link a { color: var(--gold); text-decoration-color: var(--gold-lo); text-underline-offset: 4px; }
+.charts-link a:hover { color: var(--gold-hi); }
+
+/* ---------- footer ---------- */
+footer {
+  border-top: 1px solid var(--line);
+  background: var(--ink-2);
+  padding-block: 40px 44px;
+}
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.foot-brand { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.foot-brand img { width: 52px; height: auto; }
+.foot-brand p { margin: 0; font-family: var(--f-display); font-size: 19px; font-style: italic; color: var(--muted); }
+.tg {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--text);
+  font-size: 15px;
+}
+.tg .icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--gold-lo);
+  color: var(--gold);
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.tg .icon svg { width: 22px; height: 22px; margin-left: -2px; }
+.tg:hover .icon { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+.tg small { display: block; color: var(--muted); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; }
+
+@media (max-width: 720px) {
+  .felt-grid { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: 1fr; }
+  .stat { border-left: 0; border-top: 1px solid var(--line); }
+  .stat:first-child { border-top: 0; }
+  .foot { flex-direction: column; text-align: center; }
+  .foot-brand { flex-direction: column; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn, .tg .icon { transition: none; }
+  .btn:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <img src="emblem.png" alt="Эмблема клуба SPC: золотой лавровый венок" width="492" height="504">
+    <h1 class="wordmark">Sigma Poker Club</h1>
+    <p class="tagline">Спортивный покерный клуб</p>
+    <div class="suits" aria-hidden="true">♠ ♥ ♦ ♣</div>
+  </div>
+</header>
+
+<main>
+  <section class="next" aria-labelledby="next-title">
+    <div class="wrap">
+      <div class="felt">
+        <div class="felt-grid">
+          <div>
+            <p class="eyebrow">Анонс · Сезон 26/27</p>
+            <h2 id="next-title">Ближайший турнир: <span class="date" id="next-date">пятница, 23 октября</span></h2>
+            <p class="lead">Продолжаем осеннюю серию. Играем каждую пятницу, очки за места идут в таблицу сезона. Время, место и состав объявляем в канале клуба.</p>
+            <a class="btn" href="https://t.me/sigmapokerclub" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13.1 1.4 11.6c-1-.3-1.1-1 .2-1.5L20.5 2.9c.9-.3 1.7.2 1.4 1.4z"/></svg>
+              Подробности в Telegram
+            </a>
+          </div>
+          <dl class="ticket">
+            <div><dt>Серия</dt><dd>Осенняя</dd></div>
+            <div><dt>Сезон</dt><dd>26/27</dd></div>
+            <div><dt>Игровой день</dt><dd>Пятница</dd></div>
+            <div><dt>Зачёт</dt><dd>Очки в рейтинг</dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" aria-labelledby="about-title">
+    <div class="wrap">
+      <h2 class="section-title" id="about-title">О клубе</h2>
+      <div class="about-text">
+        <p>Мы начали собираться за покерным столом больше двух лет назад. Около года назад у нас появились своя символика и сезоны, и с тех пор мы работаем как клуб.</p>
+        <p>Каждую пятницу проводим турнир. Игры идут сезонами, за места игроки получают очки. В сериях сателлитов очки определяют стартовый стек в main event: чем выше игрок в таблице, тем больше у него фишек на старте.</p>
+        <p>Лучшие игроки по итогам отборов едут представлять клуб на живых турнирах.</p>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><b>51</b><span>турнир клуба сыгран<br>к 16 октября</span></div>
+        <div class="stat"><b>2</b><span>место из 117 игроков<br>на выезде в Красную Поляну</span></div>
+        <div class="stat"><b>2+</b><span>года за общим столом,<br>год в статусе клуба</span></div>
+      </div>
+
+      <p class="charts-link">Готовимся к турнирам по своим <a href="https://bibky.github.io/poker-charts/" target="_blank" rel="noopener">префлоп-чартам</a>.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div class="foot-brand">
+      <img src="wreath.png" alt="" width="246" height="208">
+      <p>Следите за анонсами и играйте в покер</p>
+    </div>
+    <a class="tg" href="https://t.me/sigmapokerclub" target="_blank" rel="noopener" aria-label="Telegram-канал клуба @sigmapokerclub">
+      <span class="icon">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13.1 1.4 11.6c-1-.3-1.1-1 .2-1.5L20.5 2.9c.9-.3 1.7.2 1.4 1.4z"/></svg>
+      </span>
+      <span><small>Telegram</small>@sigmapokerclub</span>
+    </a>
+  </div>
+</footer>
+
+<script>
+// Keep the announcement date on the coming Friday so the page never shows a past game.
+(function () {
+  try {
+    var now = new Date();
+    var d = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var add = (5 - d.getDay() + 7) % 7;
+    d.setDate(d.getDate() + add);
+    var txt = d.toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long' });
+    if (add === 0) txt = 'сегодня, ' + txt.split(', ')[1];
+    document.getElementById('next-date').textContent = txt;
+  } catch (e) {}
+})();
+</script>
+</body>
+</html>
